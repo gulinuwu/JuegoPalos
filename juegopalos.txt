@@ -1,5 +1,10 @@
+//JUEGO PALOS: El usuario ingresará un número de palos iniciales con el que empezar el juego (entre 8 y 30)
+//El juego consiste en restas de números de palos hasta llegar a 1, quien se quede con el ultimo palo pierde.
+//El jugador solo podrá restar de 1 a 3 palos, con la excepción de que cuando queden 2 palos solo podrá restar 1.
+
 public void JuegoPalos()
 {
+    //Función encargada de imprimir los palos con el número de palos correspondientes en cada ciclo del bucle más adelante.
     void imprimir(int npalos)
     {
         for (int i = 0; i < npalos; i++)
@@ -8,65 +13,77 @@ public void JuegoPalos()
         }
         Console.WriteLine();
     }
-
+    //Inicio del juego y breve explicación 
     Console.WriteLine("JUEGO RESTA DE PALOS");
     Console.WriteLine("--------------------");
-    Console.WriteLine("Pierde quien se queda con el último palo.");
+    Console.WriteLine("Consiste en hacer restas de palos entre 1 y 3. Pierde quien se queda con el último palo.");
     Console.WriteLine();
+
+    //Declaración de las variables a utilizar más adelante y las iniciamos en 0.
     int npalos = 0;
     int resta = 0;
 
+    //Try catch para detectar las exepciones del programa
     try
     {
+        //Bucle para comprobar que el número de palos inicial introducido es válido para empezar a jugar.
         do
         {
             Console.Write("Ingresa el número de palos inciales para el juego: ");
             Console.WriteLine();
-            npalos = Convert.ToInt32(Console.ReadLine());
+            npalos = Convert.ToInt32(Console.ReadLine()); //npalos es la variable donde se almacenará el valor entero introducido por el usuario
         }
         while (npalos < 8 || npalos > 30);
 
         Console.Write("Estos son los palos que has elegido para jugar: " + npalos);
         Console.WriteLine();
-        imprimir(npalos);
+        imprimir(npalos); //Llamada a la función para que en este instante del codigo se imprima la cantidad de palos almacenada en npalos.
 
-
-        while (npalos > 1)
+        //Bucle que se ejecutará mientras que el número de palos sea mayor de 1, si es 1 se termina el programa.
+        while (npalos >= 1)
         {
+            //Comprobación del momento en el que solo quedan 2 palos, si solo quedan dos palos el máximo numero de palos que podemos restar es 1.
             if (npalos == 2)
             {
+                //Bucle que comprueba que el número solo pueda ser 1 para restarselo al 2.
                 do
                 {
                     Console.Write("Ingresa el número de palos a restar (Sólo válido el 1): ");
                     Console.WriteLine();
-                    resta = Convert.ToInt32(Console.ReadLine());
+                    resta = Convert.ToInt32(Console.ReadLine()); //variable que almacena el número de palos que se van a restar al número de palos actual.
                 }
-                while (resta != 1);
+                while (resta != 1); 
+
                 Console.WriteLine("Has elegido restar " + resta + " palos.");
                 Console.WriteLine();
-                npalos = npalos - resta;
-                imprimir(npalos);
+                npalos = npalos - resta; //Restamos el número de palos que tenemos actualmente y le restamos el número que nos ha introducido como resta para restar.
+                imprimir(npalos); //Mostramos el número de palos actual.
                 Console.WriteLine();
+
+                //Comprobación de que solo queda un palo activo, si es asi el bucle termina (break), y nos dice que la partida ha terminado.
                 if (npalos == 1)
                 {
                     Console.WriteLine("La partida ha terminado.");
                     break;
                 }
             }
+
+            //Bucle que comprueba que el número que nos introduce para restar de manera normal sea entre 1 y 3, si esta fuera del rango nos pedirá nuevamente introducirlo.
             do
             {
                 Console.Write("Ingresa el número de palos a restar (Sólo válido del 1 al 3): ");
-                resta = Convert.ToInt32(Console.ReadLine());
+                resta = Convert.ToInt32(Console.ReadLine()); //De nuevo, variable que almacena el número de palos que se restarán.
             }
             while (resta < 1 || resta > 3);
 
             Console.WriteLine("Has elegido restar " + resta + " palos.");
             Console.WriteLine();
             npalos = npalos - resta;
-            imprimir(npalos);
+            imprimir(npalos); //Muestra por pantalla los palos activos.
             Console.WriteLine();
         }
     } 
+    //Lugar donde se almacenan las excepciones generadas durante la ejecución del programa y al haber alguna nos muestra por pantalla una breve descripción de ella.
     catch (Exception e) 
     { 
         Console.WriteLine(e.Message); 
