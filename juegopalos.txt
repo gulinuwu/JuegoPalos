@@ -1,0 +1,74 @@
+public void JuegoPalos()
+{
+    void imprimir(int npalos)
+    {
+        for (int i = 0; i < npalos; i++)
+        {
+            Console.Write("| ");
+        }
+        Console.WriteLine();
+    }
+
+    Console.WriteLine("JUEGO RESTA DE PALOS");
+    Console.WriteLine("--------------------");
+    Console.WriteLine("Pierde quien se queda con el último palo.");
+    Console.WriteLine();
+    int npalos = 0;
+    int resta = 0;
+
+    try
+    {
+        do
+        {
+            Console.Write("Ingresa el número de palos inciales para el juego: ");
+            Console.WriteLine();
+            npalos = Convert.ToInt32(Console.ReadLine());
+        }
+        while (npalos < 8 || npalos > 30);
+
+        Console.Write("Estos son los palos que has elegido para jugar: " + npalos);
+        Console.WriteLine();
+        imprimir(npalos);
+
+
+        while (npalos > 1)
+        {
+            if (npalos == 2)
+            {
+                do
+                {
+                    Console.Write("Ingresa el número de palos a restar (Sólo válido el 1): ");
+                    Console.WriteLine();
+                    resta = Convert.ToInt32(Console.ReadLine());
+                }
+                while (resta != 1);
+                Console.WriteLine("Has elegido restar " + resta + " palos.");
+                Console.WriteLine();
+                npalos = npalos - resta;
+                imprimir(npalos);
+                Console.WriteLine();
+                if (npalos == 1)
+                {
+                    Console.WriteLine("La partida ha terminado.");
+                    break;
+                }
+            }
+            do
+            {
+                Console.Write("Ingresa el número de palos a restar (Sólo válido del 1 al 3): ");
+                resta = Convert.ToInt32(Console.ReadLine());
+            }
+            while (resta < 1 || resta > 3);
+
+            Console.WriteLine("Has elegido restar " + resta + " palos.");
+            Console.WriteLine();
+            npalos = npalos - resta;
+            imprimir(npalos);
+            Console.WriteLine();
+        }
+    } 
+    catch (Exception e) 
+    { 
+        Console.WriteLine(e.Message); 
+    }
+}
