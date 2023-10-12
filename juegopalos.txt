@@ -13,17 +13,13 @@ public void JuegoPalos()
     //Declaración de las variables a utilizar más adelante y las iniciamos en 0.
     int npalos = 1;
     int resta = 0;
+    char respuesta = 'a';
 
     npalos = ComprobarNinicial(); //Almacena el numero de palos elegidos y los imprime.
 
     //Bucle que se ejecutará mientras que el número de palos sea mayor de 1, si es 1 se termina el programa.
     while (npalos >= 1)
     {
-        if (npalos == 1)
-        {
-            ComprobarGanador(npalos);
-            break;
-        }
         //Comprobación del momento en el que solo quedan 2 palos, si solo quedan dos palos el máximo numero de palos que podemos restar es 1.
         if (npalos == 2)
         {
@@ -38,6 +34,26 @@ public void JuegoPalos()
             {
                 Console.WriteLine("Has perdido, te has quedado con 0 palos");
             }
+        }
+        if (npalos == 1)
+        {
+            ComprobarGanador(npalos);
+            //Bucle para comprobar una respuesta válida para volver a jugar o parar el programa.
+            do
+            {
+                try
+                {
+                    Console.WriteLine("¿Quieres volver a intentarlo? (S/N)");
+                    respuesta = Convert.ToChar(Console.ReadLine());
+                    respuesta = char.ToUpper(respuesta);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            } while (respuesta != 'S' && respuesta != 'N');
+            if (respuesta == 'S') { JuegoPalos(); }
+            if (respuesta == 'N') { break; }
         }
     }
 
